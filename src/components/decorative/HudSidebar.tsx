@@ -34,8 +34,8 @@ export default function HudSidebar() {
   return (
     <>
       {/* Left side — scroll progress bar */}
-      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-[90] hidden lg:flex flex-col items-center gap-2">
-        <div className="w-px h-32 bg-white/[0.06] relative overflow-hidden rounded-full">
+      <div className="fixed left-4 top-1/2 -translate-y-1/2 z-[90] pointer-events-none hidden lg:flex flex-col items-center gap-2">
+        <div className="w-px h-32 bg-text-dim/20 relative overflow-hidden rounded-full">
           <div
             className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-cyan to-violet rounded-full transition-all duration-300"
             style={{ height: `${scrollPct}%`, opacity }}
@@ -51,7 +51,7 @@ export default function HudSidebar() {
 
       {/* Right side — system info */}
       <div
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-[90] hidden lg:flex flex-col items-end gap-3"
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-[90] pointer-events-none hidden lg:flex flex-col items-end gap-3"
         style={{ opacity }}
       >
         <div className="text-[10px] font-[family-name:var(--font-mono)] text-text-dim tracking-wider">
@@ -60,14 +60,14 @@ export default function HudSidebar() {
         <div className="text-[10px] font-[family-name:var(--font-mono)] text-cyan">
           {time}
         </div>
-        <div className="w-8 h-px bg-white/10" />
+        <div className="w-8 h-px bg-text-dim/25" />
         <div className="text-[10px] font-[family-name:var(--font-mono)] text-text-dim tracking-wider">
           STEM
         </div>
         <div className="text-[10px] font-[family-name:var(--font-mono)] text-violet">
           v1.0
         </div>
-        <div className="w-8 h-px bg-white/10" />
+        <div className="w-8 h-px bg-text-dim/25" />
         <div className="flex gap-0.5 items-end">
           {[10, 14, 8, 12, 6].map((h, i) => (
             <div

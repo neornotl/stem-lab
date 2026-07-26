@@ -6,7 +6,7 @@ export default function ScanLine() {
   if (hud !== "full") return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden fx-dark-only">
       {/* Horizontal scan line */}
       <div
         className="absolute left-0 right-0 h-px opacity-[0.04]"

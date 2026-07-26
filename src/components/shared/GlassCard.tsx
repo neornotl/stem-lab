@@ -1,6 +1,7 @@
 "use client";
-import { useRef, useState, useEffect, type ReactNode } from "react";
+import { useRef, useState, useEffect, useCallback, type ReactNode } from "react";
 import { useDevice } from "@/context/DeviceContext";
+import { useHydrated } from "@/hooks/useHydrated";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -20,14 +21,16 @@ export default function GlassCard({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const { hud } = useDevice();
-  const [visible, setVisible] = useState(false);
+  const hydrated = useHydrated();
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!hydrated || !ref.current) return;
+    setInView(false); // start hidden after hydration
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setInView(true);
           obs.disconnect();
         }
       },
@@ -35,24 +38,25 @@ export default function GlassCard({
     );
     obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [hydrated]);
+
+  // SSR / pre-hydration: always visible
+  // Post-hydration + in view: visible with animation
+  // Post-hydration + not in view: hidden (animates in when scrolled)
+  const show = !hydrated || inView;
 
   return (
     <div
       ref={ref}
       className={cn(
-        "relative glass-card p-6 transition-all",
+        "relative glass-card p-6 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]",
         hudBrackets && hud !== "minimal" && "hud-brackets",
         hover && "glass-card-hover",
-        visible
-          ? "opacity-100 translate-y-0 scale-100"
-          : "opacity-0 translate-y-5 scale-[0.97]",
+        show ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-[0.97]",
         className
       )}
       style={{
-        transitionDuration: "600ms",
-        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        transitionDelay: visible ? `${delay * 1000}ms` : "0ms",
+        transitionDelay: show ? `${delay * 1000}ms` : "0ms",
       }}
     >
       {children}

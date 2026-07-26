@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import SectionTitle from "@/components/shared/SectionTitle";
-import GlowOrb from "@/components/decorative/GlowOrb";
 import { GraduationCap, BookOpen, Heart, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -12,64 +13,74 @@ const tabKeys = ["students", "teachers", "parents"] as const;
 
 export default function AudienceSection() {
   const { t } = useLang();
+  const reduced = usePrefersReducedMotion();
   const [activeTab, setActiveTab] = useState(0);
   const tabs = t.audience.tabs;
+  const ActiveIcon = tabIcons[activeTab];
 
   return (
     <SectionWrapper id="audience" className="relative overflow-hidden">
-      <GlowOrb color="mint" className="-top-20 -right-60" size={400} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionTitle
+          index="03"
           subtitle={t.audience.subtitle}
           title={t.audience.title}
           description={t.audience.description}
         />
 
-        {/* Tabs */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex gap-2 p-1.5 rounded-2xl bg-white/5 border border-glass-border">
-            {tabKeys.map((key, i) => {
-              const Icon = tabIcons[i];
-              const tab = tabs[key];
-              return (
-                <button
-                  key={key}
-                  onClick={() => setActiveTab(i)}
-                  className={cn(
-                    "relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors",
-                    activeTab === i ? "text-bg-deep" : "text-text-muted hover:text-text"
-                  )}
-                >
-                  {activeTab === i && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan to-violet rounded-xl" />
-                  )}
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Icon className="w-4 h-4" />
-                    <span className="hidden sm:inline">{tab.label}</span>
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+        {/* Segmented tabs — left aligned */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {tabKeys.map((key, i) => {
+            const Icon = tabIcons[i];
+            const tab = tabs[key];
+            const active = activeTab === i;
+            return (
+              <button
+                key={key}
+                onClick={() => setActiveTab(i)}
+                className={cn(
+                  "inline-flex items-center gap-2 px-5 py-2.5 rounded-md border font-medium text-sm transition-all",
+                  active
+                    ? "bg-cyan border-cyan text-[#0b1220] shadow-glow-cyan"
+                    : "border-glass-border text-text-muted hover:text-text hover:border-glass-border-hover"
+                )}
+              >
+                <Icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Tab Content */}
-        <div className="max-w-3xl mx-auto glass-card p-8 md:p-10">
-          <h3 className="text-2xl font-bold font-[family-name:var(--font-heading)] text-text mb-6">
-            {tabs[tabKeys[activeTab]].title}
-          </h3>
-          <ul className="space-y-4">
-            {tabs[tabKeys[activeTab]].points.map((point, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-3 transition-all duration-300"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <CheckCircle2 className="w-5 h-5 text-cyan mt-0.5 shrink-0" />
-                <span className="text-text-muted leading-relaxed">{point}</span>
-              </li>
-            ))}
-          </ul>
+        {/* Panel */}
+        <div className="glass-card tick-corners p-7 md:p-10 max-w-4xl">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={reduced ? undefined : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduced ? undefined : { opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="flex items-center gap-4 mb-7">
+                <div className="w-12 h-12 rounded-md bg-orange/10 border border-orange/25 flex items-center justify-center shrink-0">
+                  <ActiveIcon className="w-6 h-6 text-orange" />
+                </div>
+                <h3 className="font-heading text-2xl font-bold text-text tracking-tight">
+                  {tabs[tabKeys[activeTab]].title}
+                </h3>
+              </div>
+
+              <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-5">
+                {tabs[tabKeys[activeTab]].points.map((point, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-orange mt-0.5 shrink-0" />
+                    <span className="text-text-muted leading-relaxed text-sm md:text-[15px]">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </SectionWrapper>

@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import { translations, type Language, type TranslationKeys } from "@/lib/i18n";
 
 interface LangCtx {
@@ -16,6 +16,12 @@ const Ctx = createContext<LangCtx>({
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Language>("vi");
+
+  // Keep <html lang> in sync for screen readers
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   return (
     <Ctx.Provider
       value={{

@@ -1,11 +1,9 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useLang } from "@/context/LanguageContext";
-import { useDevice } from "@/context/DeviceContext";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import SectionTitle from "@/components/shared/SectionTitle";
-import GlowOrb from "@/components/decorative/GlowOrb";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { Plus, Mail } from "lucide-react";
 import { faqVi, faqEn } from "@/data/faq";
 import { cn } from "@/lib/utils";
 
@@ -20,67 +18,48 @@ function FaqItem({
   onClick: () => void;
   index: number;
 }) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+    if (ref.current) setHeight(ref.current.scrollHeight);
+  }, [isOpen, faq.a]);
 
   return (
-    <div
-      ref={contentRef}
-      className={cn(
-        "glass-card overflow-hidden transition-all duration-600",
-        isOpen ? "border-cyan/20" : "",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-      )}
-      style={{
-        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-        transitionDelay: visible ? `${index * 30}ms` : "0ms",
-      }}
-    >
+    <div className="border-b border-glass-border">
       <button
         onClick={onClick}
-        className="w-full flex items-center gap-3 p-5 text-left group"
+        className="w-full flex items-center gap-4 py-5 text-left group"
         aria-expanded={isOpen}
       >
-        <HelpCircle
-          className={cn(
-            "w-5 h-5 shrink-0 transition-colors duration-200",
-            isOpen ? "text-cyan" : "text-text-dim group-hover:text-cyan"
-          )}
-        />
         <span
           className={cn(
-            "flex-1 text-sm md:text-base font-medium transition-colors duration-200",
+            "font-mono text-xs font-semibold tabular-nums shrink-0 transition-colors",
+            isOpen ? "text-orange" : "text-text-dim group-hover:text-orange"
+          )}
+        >
+          Q{String(index + 1).padStart(2, "0")}
+        </span>
+        <span
+          className={cn(
+            "flex-1 text-sm md:text-base font-medium transition-colors",
             isOpen ? "text-text" : "text-text-muted group-hover:text-text"
           )}
         >
           {faq.q}
         </span>
-        <ChevronDown
+        <Plus
           className={cn(
             "w-4 h-4 shrink-0 transition-all duration-300",
-            isOpen ? "text-cyan rotate-180" : "text-text-dim"
+            isOpen ? "text-orange rotate-45" : "text-text-dim group-hover:text-orange"
           )}
         />
       </button>
       <div
-        className="overflow-hidden transition-all duration-300"
-        style={{
-          maxHeight: isOpen ? `${contentRef.current?.scrollHeight ?? 500}px` : "0px",
-          opacity: isOpen ? 1 : 0,
-        }}
+        className="overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{ maxHeight: isOpen ? `${height}px` : "0px", opacity: isOpen ? 1 : 0 }}
       >
-        <div className="px-5 pb-5 pl-12">
+        <div ref={ref} className="pb-5 pl-12 pr-4">
           <p className="text-text-muted text-sm leading-relaxed">{faq.a}</p>
         </div>
       </div>
@@ -90,28 +69,49 @@ function FaqItem({
 
 export default function FAQSection() {
   const { t, lang } = useLang();
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const faqs = lang === "vi" ? faqVi : faqEn;
 
   return (
-    <SectionWrapper id="faq" className="relative overflow-hidden">
-      <GlowOrb color="mint" className="top-20 -left-40" size={350} />
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <SectionTitle
-          subtitle={t.faq.subtitle}
-          title={t.faq.title}
-          description={t.faq.description}
-        />
-        <div className="space-y-3">
-          {faqs.map((faq, i) => (
-            <FaqItem
-              key={`${lang}-${i}`}
-              faq={faq}
-              isOpen={openIndex === i}
-              onClick={() => setOpenIndex(openIndex === i ? null : i)}
-              index={i}
+    <SectionWrapper id="faq" className="relative overflow-hidden bg-bg-secondary/40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left — heading + contact card */}
+          <div className="lg:col-span-4">
+            <SectionTitle
+              index="08"
+              subtitle={t.faq.subtitle}
+              title={t.faq.title}
+              description={t.faq.description}
+              className="mb-8"
             />
-          ))}
+            <div className="glass-card tick-corners p-6">
+              <h3 className="font-heading font-semibold text-text mb-1.5">{t.faq.more}</h3>
+              <p className="text-text-muted text-sm leading-relaxed mb-4">{t.faq.moreDesc}</p>
+              <a
+                href="mailto:stemclub@example.com"
+                className="inline-flex items-center gap-2 font-mono text-sm text-cyan hover:text-orange transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                {t.footer.email}
+              </a>
+            </div>
+          </div>
+
+          {/* Right — indexed accordion */}
+          <div className="lg:col-span-8">
+            <div className="border-t border-glass-border">
+              {faqs.map((faq, i) => (
+                <FaqItem
+                  key={`${lang}-${i}`}
+                  faq={faq}
+                  isOpen={openIndex === i}
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  index={i}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </SectionWrapper>

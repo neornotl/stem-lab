@@ -8,7 +8,7 @@ export default function CornerDecorations() {
   const opacity = hud === "full" ? 0.25 : 0.12;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[90]">
+    <div className="fixed inset-0 pointer-events-none z-[90] fx-dark-only">
       {/* Top-left */}
       <svg
         className="absolute top-4 left-4"

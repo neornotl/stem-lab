@@ -7,7 +7,7 @@ export default function CircuitLines({ className }: { className?: string }) {
 
   return (
     <svg
-      className={`absolute inset-0 w-full h-full pointer-events-none ${className ?? ""}`}
+      className={`absolute inset-0 w-full h-full pointer-events-none fx-dark-only ${className ?? ""}`}
       fill="none"
       viewBox="0 0 1200 800"
       preserveAspectRatio="none"

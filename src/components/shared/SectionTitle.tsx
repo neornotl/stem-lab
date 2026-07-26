@@ -1,30 +1,54 @@
 "use client";
-import GradientText from "./GradientText";
+import { cn } from "@/lib/utils";
 
 interface Props {
   subtitle: string;
   title: string;
   description?: string;
+  /** Mono index shown before the eyebrow, e.g. "02" */
+  index?: string;
+  align?: "left" | "center";
+  className?: string;
 }
 
-export default function SectionTitle({ subtitle, title, description }: Props) {
+export default function SectionTitle({
+  subtitle,
+  title,
+  description,
+  index,
+  align = "left",
+  className,
+}: Props) {
+  const centered = align === "center";
   return (
-    <div className="text-center mb-12 md:mb-16">
-      <p className="text-cyan text-sm font-semibold tracking-widest uppercase mb-3 font-[family-name:var(--font-mono)]">
+    <div className={cn("mb-12 md:mb-16", centered && "text-center", className)}>
+      {/* Eyebrow — mono, technical */}
+      <p
+        className={cn(
+          "inline-flex items-center gap-3 font-mono text-xs font-medium tracking-[0.22em] uppercase text-cyan mb-4",
+          centered && "justify-center"
+        )}
+      >
+        {index && <span className="text-orange">{index}</span>}
+        <span className={cn("h-px w-8 bg-orange/70", centered && "hidden")} />
         {subtitle}
       </p>
-      <GradientText
-        as="h2"
-        className="text-3xl md:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-heading)] mb-4"
-      >
+
+      {/* Title — solid ink, tight, no gradient */}
+      <h2 className="font-heading text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight text-text leading-[1.12] mb-4">
         {title}
-      </GradientText>
+      </h2>
+
       {description && (
-        <p className="text-text-muted text-lg max-w-2xl mx-auto">
+        <p
+          className={cn(
+            "text-text-muted text-base md:text-lg leading-relaxed max-w-2xl",
+            centered && "mx-auto"
+          )}
+        >
           {description}
         </p>
       )}
-      <div className="mt-6 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-cyan/40 to-transparent" />
     </div>
   );
 }

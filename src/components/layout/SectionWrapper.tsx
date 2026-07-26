@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import { useHydrated } from "@/hooks/useHydrated";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -11,14 +12,22 @@ interface Props {
 
 export default function SectionWrapper({ id, children, className, noPadding }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const hydrated = useHydrated();
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!hydrated || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const isAboveFold = rect.top < window.innerHeight + 50;
+    if (isAboveFold) {
+      setInView(true);
+    } else {
+      setInView(false);
+    }
     const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
+      ([e]) => {
+        if (e.isIntersecting) {
+          setInView(true);
           obs.disconnect();
         }
       },
@@ -26,7 +35,9 @@ export default function SectionWrapper({ id, children, className, noPadding }: P
     );
     obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [hydrated]);
+
+  const show = !hydrated || inView;
 
   return (
     <section
@@ -37,7 +48,7 @@ export default function SectionWrapper({ id, children, className, noPadding }: P
         ref={ref}
         className={cn(
           "transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}
       >
         {children}

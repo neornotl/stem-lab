@@ -21,7 +21,7 @@ export default function GlowOrb({ color, className, size = 300 }: Props) {
   return (
     <div
       className={cn(
-        "absolute rounded-full blur-3xl opacity-40 pointer-events-none",
+        "absolute rounded-full blur-3xl opacity-40 pointer-events-none fx-soft-light",
         colorMap[color],
         hud === "simplified" ? "opacity-25" : "opacity-40",
         className

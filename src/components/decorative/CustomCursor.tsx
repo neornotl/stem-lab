@@ -2,11 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useDevice } from "@/context/DeviceContext";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 export default function CustomCursor() {
   const { isDesktop } = useDevice();
+  const reduced = usePrefersReducedMotion();
   const [visible, setVisible] = useState(false);
   const [clicking, setClicking] = useState(false);
+  const [interactive, setInteractive] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -20,7 +23,8 @@ export default function CustomCursor() {
   const glowY = useSpring(cursorY, { damping: 15, stiffness: 120, mass: 1 });
 
   useEffect(() => {
-    if (!isDesktop) return;
+    // Don't hijack cursor for reduced-motion users or non-desktop
+    if (!isDesktop || reduced) return;
 
     const move = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -32,27 +36,34 @@ export default function CustomCursor() {
     const up = () => setClicking(false);
     const enter = () => setVisible(true);
     const leave = () => setVisible(false);
+    const over = (e: MouseEvent) => {
+      setInteractive(!!(e.target as HTMLElement)?.closest?.("button, a, input, select, textarea, [role='button'], label"));
+    };
 
     window.addEventListener("mousemove", move);
     window.addEventListener("mousedown", down);
     window.addEventListener("mouseup", up);
+    window.addEventListener("mouseover", over);
     document.addEventListener("mouseenter", enter);
     document.addEventListener("mouseleave", leave);
 
-    // Hide default cursor
+    // Hide default cursor only while custom cursor is active
+    document.documentElement.classList.add("custom-cursor-active");
     document.documentElement.style.cursor = "none";
 
     return () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mousedown", down);
       window.removeEventListener("mouseup", up);
+      window.removeEventListener("mouseover", over);
       document.removeEventListener("mouseenter", enter);
       document.removeEventListener("mouseleave", leave);
+      document.documentElement.classList.remove("custom-cursor-active");
       document.documentElement.style.cursor = "";
     };
-  }, [isDesktop, cursorX, cursorY, visible]);
+  }, [isDesktop, reduced, cursorX, cursorY, visible]);
 
-  if (!isDesktop) return null;
+  if (!isDesktop || reduced) return null;
 
   return (
     <>
@@ -89,6 +100,8 @@ export default function CustomCursor() {
           className={`rounded-full border transition-all duration-200 ${
             clicking
               ? "w-8 h-8 border-cyan/60 bg-cyan/5"
+              : interactive
+              ? "w-6 h-6 border-cyan/70 bg-cyan/10"
               : "w-10 h-10 border-cyan/30"
           }`}
         />
@@ -108,7 +121,9 @@ export default function CustomCursor() {
         <div
           className={`rounded-full transition-all duration-150 ${
             clicking
-              ? "w-1.5 h-1.5 bg-white shadow-glow-cyan"
+              ? "w-1.5 h-1.5 bg-text shadow-glow-cyan"
+              : interactive
+              ? "w-1.5 h-1.5 bg-cyan shadow-glow-cyan"
               : "w-1 h-1 bg-cyan shadow-glow-cyan"
           }`}
         />

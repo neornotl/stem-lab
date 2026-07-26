@@ -13,11 +13,11 @@ export const translations = {
       join: "Đăng ký tham gia",
     },
     hero: {
-      badge: "STEM Innovation Lab",
-      title: "STEM Innovation Club",
+      badge: "Phòng thí nghiệm STEM",
+      title: "CLB STEM-AI-ROBOTIC",
       subtitle: "Nơi khoa học gặp sáng tạo",
       description:
-        "Câu lạc bộ STEM dành cho những bạn trẻ đam mê công nghệ, khoa học và sáng tạo. Cùng nhau khám phá, thử nghiệm và biến ý tưởng thành sản phẩm thực tế.",
+        "CLB STEM-AI-ROBOTIC dành cho những bạn trẻ đam mê công nghệ, khoa học và sáng tạo. Cùng nhau khám phá, thử nghiệm và biến ý tưởng thành sản phẩm thực tế.",
       ctaPrimary: "Đăng ký tham gia",
       ctaSecondary: "Khám phá hoạt động",
       stats: {
@@ -28,10 +28,10 @@ export const translations = {
       },
     },
     about: {
-      title: "CLB STEM là gì?",
+      title: "CLB STEM-AI-ROBOTIC là gì?",
       subtitle: "Về chúng tôi",
       description:
-        "STEM Innovation Club là môi trường học tập và sáng tạo, nơi học sinh được tự do khám phá khoa học, công nghệ, kỹ thuật và toán học thông qua các dự án thực tế.",
+        "CLB STEM-AI-ROBOTIC là môi trường học tập và sáng tạo, nơi học sinh được tự do khám phá khoa học, công nghệ, kỹ thuật và toán học thông qua các dự án thực tế.",
       cards: [
         {
           title: "Học qua thực hành",
@@ -53,19 +53,19 @@ export const translations = {
       description:
         "Bảy lĩnh vực cốt lõi giúp bạn khám phá đam mê và phát triển kỹ năng công nghệ.",
       items: [
-        { title: "Robotics", desc: "Thiết kế, lắp ráp và lập trình robot tự động." },
-        { title: "Trí tuệ nhân tạo", desc: "Khám phá machine learning và ứng dụng AI." },
-        { title: "Lập trình", desc: "Học code từ cơ bản đến xây dựng ứng dụng thực tế." },
-        { title: "IoT", desc: "Kết nối vạn vật, xây dựng hệ thống thông minh." },
+        { title: "Rô-bốt", desc: "Thiết kế, lắp ráp và lập trình robot tự động." },
+        { title: "Trí tuệ nhân tạo", desc: "Khám phá học máy và ứng dụng trí tuệ nhân tạo." },
+        { title: "Lập trình", desc: "Học lập trình từ cơ bản đến xây dựng ứng dụng thực tế." },
+        { title: "Kết nối vạn vật", desc: "Kết nối vạn vật, xây dựng hệ thống thông minh." },
         { title: "Khoa học ứng dụng", desc: "Thí nghiệm và nghiên cứu khoa học thực tiễn." },
         { title: "Thiết kế sản phẩm", desc: "Từ ý tưởng đến sản phẩm hoàn chỉnh." },
         { title: "Dự án sáng tạo", desc: "Biến ý tưởng đột phá thành hiện thực." },
       ],
     },
     audience: {
-      title: "Dành cho mọi người",
+      title: "CLB chào đón Học sinh, Giáo viên và phụ huynh cùng tham gia",
       subtitle: "Đối tượng",
-      description: "CLB mở cửa cho học sinh, giáo viên và cả phụ huynh cùng tham gia.",
+      description: "",
       tabs: {
         students: {
           label: "Học sinh",
@@ -104,12 +104,12 @@ export const translations = {
       subtitle: "Trải nghiệm",
       description: "Những hoạt động đa dạng giúp bạn phát triển toàn diện.",
       items: [
-        { title: "Workshop", desc: "Các buổi học thực hành chuyên sâu theo chủ đề." },
+        { title: "Hội thảo thực hành", desc: "Các buổi học thực hành chuyên sâu theo chủ đề." },
         { title: "Cuộc thi", desc: "Tranh tài, thử thách bản thân ở nhiều cấp độ." },
         { title: "Dự án nhóm", desc: "Hợp tác xây dựng sản phẩm STEM hoàn chỉnh." },
-        { title: "Training kỹ năng", desc: "Rèn luyện kỹ năng mềm và kỹ năng chuyên môn." },
+        { title: "Đào tạo kỹ năng", desc: "Rèn luyện kỹ năng mềm và kỹ năng chuyên môn." },
         { title: "Trưng bày sản phẩm", desc: "Giới thiệu thành quả tới cộng đồng." },
-        { title: "Mentoring", desc: "Được cố vấn định hướng bởi người có kinh nghiệm." },
+        { title: "Cố vấn", desc: "Được cố vấn định hướng bởi người có kinh nghiệm." },
       ],
     },
     projects: {
@@ -119,18 +119,18 @@ export const translations = {
       placeholder: "Sắp ra mắt",
       items: [
         {
-          title: "Robot tránh vật cản",
-          category: "Robotics",
+          title: "Rô-bốt tránh vật cản",
+          category: "Rô-bốt",
           desc: "Robot tự động điều hướng, phát hiện và né tránh chướng ngại vật bằng cảm biến.",
         },
         {
-          title: "Nhà thông minh IoT",
-          category: "IoT",
+          title: "Nhà thông minh",
+          category: "Kết nối vạn vật",
           desc: "Mô hình nhà điều khiển từ xa: đèn, cửa, nhiệt độ qua ứng dụng di động.",
         },
         {
-          title: "AI hỗ trợ học tập",
-          category: "AI",
+          title: "Trợ lý học tập thông minh",
+          category: "Trí tuệ nhân tạo",
           desc: "Ứng dụng dùng AI gợi ý lộ trình học và giải đáp thắc mắc cho học sinh.",
         },
         {
@@ -161,8 +161,9 @@ export const translations = {
         name: "Họ và tên",
         role: "Bạn là",
         roleOptions: { student: "Học sinh", teacher: "Giáo viên", parent: "Phụ huynh" },
+        interestOptions: ["Rô-bốt", "Trí tuệ nhân tạo", "Lập trình", "Kết nối vạn vật", "Khoa học ứng dụng", "Thiết kế sản phẩm", "Dự án sáng tạo"],
         class: "Lớp / Đơn vị",
-        email: "Email",
+        email: "Thư điện tử",
         phone: "Số điện thoại",
         interest: "Mảng quan tâm",
         experience: "Kinh nghiệm hiện tại",
@@ -173,7 +174,7 @@ export const translations = {
       placeholders: {
         name: "Nguyễn Văn A",
         class: "VD: 10A1 hoặc Tổ Vật lý",
-        email: "email@example.com",
+        email: "email@vidu.com",
         phone: "0123 456 789",
         experience: "Mô tả ngắn gọn kinh nghiệm của bạn (nếu có)",
         reason: "Chia sẻ điều khiến bạn muốn tham gia CLB...",
@@ -191,21 +192,31 @@ export const translations = {
         role: "Vui lòng chọn vai trò",
         interest: "Vui lòng chọn mảng quan tâm",
       },
+      pitch: {
+        status: "Đang tuyển thành viên mới",
+        points: [
+          "Miễn phí 100% — không cần kinh nghiệm",
+          "Phản hồi trong 3–5 ngày làm việc",
+          "Chọn tối đa 2 mảng chính",
+        ],
+      },
     },
     faq: {
       title: "Câu hỏi thường gặp",
       subtitle: "Hỏi & Đáp",
-      description: "Những thắc mắc phổ biến về CLB STEM.",
+      description: "Những thắc mắc phổ biến về CLB STEM-AI-ROBOTIC.",
+      more: "Vẫn còn thắc mắc?",
+      moreDesc: "Đừng ngại liên hệ với chúng tôi qua email bên dưới.",
     },
     footer: {
       description:
-        "STEM Innovation Club — Nơi ươm mầm những nhà sáng tạo tương lai. Khoa học, công nghệ và sáng tạo trong tầm tay bạn.",
+        "CLB STEM-AI-ROBOTIC — Nơi ươm mầm những nhà sáng tạo tương lai. Khoa học, công nghệ và sáng tạo trong tầm tay bạn.",
       school: "Trường [Tên Trường]",
       quickLinks: "Liên kết nhanh",
       contact: "Liên hệ",
       follow: "Theo dõi",
-      email: "stemclub@example.com",
-      rights: "Bản quyền thuộc về STEM Innovation Club.",
+      email: "stemclub@vidu.com",
+      rights: "Bản quyền thuộc về CLB STEM-AI-ROBOTIC.",
       madeWith: "Xây dựng với đam mê khoa học",
     },
   },
@@ -222,10 +233,10 @@ export const translations = {
     },
     hero: {
       badge: "STEM Innovation Lab",
-      title: "STEM Innovation Club",
+      title: "CLB STEM-AI-ROBOTIC",
       subtitle: "Where Science Meets Creativity",
       description:
-        "A STEM club for young minds passionate about technology, science, and creativity. Explore, experiment, and turn ideas into real products together.",
+        "CLB STEM-AI-ROBOTIC is for young minds passionate about technology, science, and creativity. Explore, experiment, and turn ideas into real products together.",
       ctaPrimary: "Join the Club",
       ctaSecondary: "Explore Activities",
       stats: {
@@ -236,10 +247,10 @@ export const translations = {
       },
     },
     about: {
-      title: "What is STEM Club?",
+      title: "What is CLB STEM-AI-ROBOTIC?",
       subtitle: "About Us",
       description:
-        "STEM Innovation Club is a learning and creative environment where students freely explore science, technology, engineering, and math through hands-on projects.",
+        "CLB STEM-AI-ROBOTIC is a learning and creative environment where students freely explore science, technology, engineering, and math through hands-on projects.",
       cards: [
         {
           title: "Learn by Doing",
@@ -369,6 +380,7 @@ export const translations = {
         name: "Full Name",
         role: "You are a",
         roleOptions: { student: "Student", teacher: "Teacher", parent: "Parent" },
+        interestOptions: ["Robotics", "Artificial Intelligence", "Programming", "IoT", "Applied Science", "Product Design", "Creative Projects"],
         class: "Class / Unit",
         email: "Email",
         phone: "Phone Number",
@@ -399,21 +411,31 @@ export const translations = {
         role: "Please select a role",
         interest: "Please select an area",
       },
+      pitch: {
+        status: "Now recruiting new members",
+        points: [
+          "100% free — no experience needed",
+          "Response within 3–5 business days",
+          "Choose up to 2 main areas",
+        ],
+      },
     },
     faq: {
       title: "Frequently Asked Questions",
       subtitle: "Q & A",
-      description: "Common questions about the STEM Club.",
+      description: "Common questions about CLB STEM-AI-ROBOTIC.",
+      more: "Still have questions?",
+      moreDesc: "Don't hesitate to reach out via the email below.",
     },
     footer: {
       description:
-        "STEM Innovation Club — Nurturing the innovators of tomorrow. Science, technology, and creativity at your fingertips.",
+        "CLB STEM-AI-ROBOTIC — Nurturing the innovators of tomorrow. Science, technology, and creativity at your fingertips.",
       school: "[School Name]",
       quickLinks: "Quick Links",
       contact: "Contact",
       follow: "Follow",
       email: "stemclub@example.com",
-      rights: "All rights reserved by STEM Innovation Club.",
+      rights: "All rights reserved by CLB STEM-AI-ROBOTIC.",
       madeWith: "Built with a passion for science",
     },
   },
