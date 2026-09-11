@@ -4,7 +4,6 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { cn } from "@/lib/utils";
 
 /* ── Animated counter (mono, left-aligned) ── */
 function AnimatedCounter({ target, label }: { target: number; label: string }) {

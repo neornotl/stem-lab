@@ -12,7 +12,6 @@ import {
   ArrowDoodle,
   SparkDoodle,
 } from "./primitives";
-import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 /* ————— count-up reading ————— */
 function CountUp({ target }: { target: number }) {

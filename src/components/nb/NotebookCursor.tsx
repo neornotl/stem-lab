@@ -129,7 +129,7 @@ export default function NotebookCursor() {
 
   /* ─── Main animation loop ─── */
   const tick = useCallback(
-    (now: number) => {
+    function animate(now: number) {
       const canvas = canvasRef.current;
       const pen = penRef.current;
       if (!canvas || !pen) return;
@@ -180,7 +180,7 @@ export default function NotebookCursor() {
       pen.style.opacity = active.current ? "1" : "0";
       prevPos.current = { x, y };
 
-      rafRef.current = requestAnimationFrame(tick);
+      rafRef.current = requestAnimationFrame(animate);
     },
     [drawBlot, drawSketchCircle]
   );

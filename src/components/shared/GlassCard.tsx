@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect, useCallback, type ReactNode } from "react";
+import { useRef, useState, useEffect, type ReactNode } from "react";
 import { useDevice } from "@/context/DeviceContext";
 import { useHydrated } from "@/hooks/useHydrated";
 import { cn } from "@/lib/utils";

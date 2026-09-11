@@ -19,13 +19,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const attr = document.documentElement.dataset.theme;
-    if (attr === "dark" || attr === "light") {
-      setTheme(attr);
-    } else {
-      document.documentElement.dataset.theme = theme;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const frame = requestAnimationFrame(() => {
+      const attr = document.documentElement.dataset.theme;
+      if (attr === "dark" || attr === "light") {
+        setTheme(attr);
+      } else {
+        document.documentElement.dataset.theme = "light";
+      }
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const toggle = () => {
