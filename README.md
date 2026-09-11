@@ -1,105 +1,46 @@
-# 🚀 STEM Innovation Club — Website MVP
+# CLB STEM-AI-ROBOTIC
 
-This repository contains the source code for the **STEM Innovation Club** website MVP. 
-The project is designed as an elegant, futuristic landing page to introduce the club to students, teachers, and parents, and to facilitate member registration.
+Website giới thiệu câu lạc bộ STEM-AI-ROBOTIC, hoạt động, dự án, thành viên và quy trình đăng ký. Giao diện hỗ trợ tiếng Việt/tiếng Anh, responsive và accessibility cơ bản.
 
-## 📋 Table of Contents
-- [Product Brief](#product-brief)
-- [Tech Stack](#tech-stack)
-- [Visual Direction & Design System](#visual-direction--design-system)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Development Roadmap](#development-roadmap)
+## Xem trực tiếp
 
----
+- [website-aic6.vercel.app](https://website-aic6.vercel.app/)
+- Các trang chính: `/`, `/lab`, `/members`
 
-## 💡 Product Brief
-- **Name**: STEM Innovation Club
-- **Type**: Landing page MVP (Single-page application)
-- **Target Audience**: Students, Teachers, Parents
-- **Language**: Bilingual (Vietnamese / English) toggle supported.
-- **Goal**: Showcase the club's activities, projects, and recruit new members through an immersive visual experience.
+## Công nghệ
 
----
+- Next.js 16, React 19 và TypeScript
+- Tailwind CSS 4
+- Framer Motion và Lucide React
 
-## 🛠 Tech Stack
-The project is built with a modern frontend stack focusing on performance and animations:
-- **Framework**: [Next.js](https://nextjs.org/) (App Router)
-- **Language**: TypeScript
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **UI Architecture**: Component-driven with Context API for state management (Device and Language).
+## Chạy local
 
----
+Yêu cầu Node.js 20 trở lên.
 
-## 🎨 Visual Direction & Design System
-**Concept**: "Elegant STEM Lab" — a futuristic scientific console where technology meets art.
-
-### Core Visual Principles
-- **Lightweight HUD**: Thin 1px borders, subtle corner brackets, decorative SVG circuit lines.
-- **Glassmorphism**: Cards use heavy backdrop blurs (`backdrop-blur-xl`) with semi-transparent white backgrounds and thin borders.
-- **Ambient Glow**: Soft cyan/violet radial gradients acting as background blobs.
-- **Typography-forward**: Bold headings with gradient text (Space Grotesk), readable clean body text (Inter).
-- **Adaptive HUD**: Animations and decorative elements degrade gracefully from Desktop down to Mobile devices.
-
-### Color Palette
-- **Backgrounds**: Deep dark `#050816` (Primary) up to `#111832` (Elevated).
-- **Accents**: Cyan (`#00D4FF`) and Violet (`#8B5CF6`).
-- **Text**: Slate/white hues for readable contrast against dark backgrounds.
-
----
-
-## 📁 Project Structure
-
-```text
-stem_club/
-├── PROPOSAL.md          # Original project specifications and design docs
-└── website/             # Next.js Application source code
-    ├── public/          # Static assets (images, icons)
-    └── src/
-        ├── app/         # Next.js App Router (layout, page, global CSS)
-        ├── components/  # React components
-        │   ├── adaptive/    # Device and HUD level wrappers
-        │   ├── decorative/  # HUD elements, grid patterns, glow orbs
-        │   ├── layout/      # Navbar, Footer, wrappers
-        │   ├── sections/    # Landing page sections (Hero, About, etc.)
-        │   ├── shared/      # Reusable shared components
-        │   └── ui/          # Base UI components (buttons, cards)
-        ├── context/     # React Context (LanguageProvider, DeviceProvider)
-        ├── data/        # Static data (i18n text, activities, projects)
-        ├── hooks/       # Custom React hooks
-        └── lib/         # Utility functions and constants
+```bash
+npm ci
+npm run dev
 ```
 
----
+Mở [http://localhost:3000](http://localhost:3000).
 
-## 🚀 Getting Started
+## Kiểm tra trước khi gửi thay đổi
 
-### Prerequisites
-- Node.js (v18 or higher)
-- npm, yarn, pnpm, or bun
+```bash
+npm run lint
+npm run build
+```
 
-### Installation
-1. Clone the repository and navigate to the website directory:
-   ```bash
-   cd stem_club/website
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Cấu trúc
 
----
+| Đường dẫn | Nội dung |
+| --- | --- |
+| `src/app/` | Route, layout, metadata và style toàn cục |
+| `src/components/sections/` | Các phần nội dung của landing page |
+| `src/components/layout/` | Navbar, footer và section wrapper |
+| `src/components/shared/` | Thành phần dùng chung |
+| `src/components/decorative/` | Hiệu ứng và trang trí giao diện |
+| `src/context/` | Trạng thái ngôn ngữ, thiết bị và theme |
+| `public/` | Ảnh và tài nguyên tĩnh |
 
-## 🗺 Development Roadmap
-
-- **Phase 1 (Current)**: MVP Landing Page (Setup, Design system, UI Layout, 9 sections, responsive adaptive HUD, animations).
-- **Phase 2**: Real content integration (replace placeholders, SEO optimization, add SVG illustrations).
-- **Phase 3**: Form Backend integration (Connect registration to Supabase/Google Sheets, email confirmation).
-- **Phase 4**: Extended Features (News, detailed gallery, user dashboards).
+Không commit secret hoặc dữ liệu đăng ký của thành viên vào repo.
